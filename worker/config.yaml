@@ -1,0 +1,47 @@
+# Shorts Agent configuration
+
+whisper:
+  model: "base"          # tiny / base / small / medium  (bigger = slower, more accurate)
+  compute_type: "int8"   # int8 works on CPU / Mac
+  language: "en"         # set to null to auto-detect
+
+moments:
+  marker_phrases: ["clip it", "clip that", "clip this"]
+  clip_min_seconds: 20
+  clip_max_seconds: 30
+  clip_target_seconds: 28
+  marker_lookback_seconds: 22   # clip starts this long BEFORE the marker phrase (captures the action)
+  max_candidates: 40
+  min_gap_seconds: 45           # candidates closer than this are merged
+  energy_ratio_threshold: 1.4   # how much louder than the surrounding 90s a spike must be
+
+llm:
+  # provider: "gemini" (free tier, needs GEMINI_API_KEY env var) or "none" (built-in heuristics)
+  provider: "gemini"
+  model: "gemini-2.5-flash-lite"
+  game_name: "GTA 6"
+
+tts:
+  enabled: true
+  voice: "en-US-ChristopherNeural"
+  rate: "+5%"
+
+audio:
+  original_volume: 1.0    # stream audio (game + your voice); auto-ducked while the AI voice speaks
+  voice_volume: 1.15
+  music_volume: 0.07      # background music bed
+  music_enabled: true
+
+captions:
+  font: "Arial"
+  font_size: 78
+  words_per_line: 3
+  primary_color: "FFFFFF"
+  highlight_color: "00E5FF"   # current word colour (RRGGBB)
+  outline_color: "000000"
+  margin_bottom: 520          # px from the bottom of the 1920px frame
+
+output:
+  width: 1080
+  height: 1920
+  crf: 20

@@ -1,0 +1,8 @@
+faster-whisper
+edge-tts
+numpy
+soundfile
+pyyaml
+fastapi
+uvicorn
+google-genai

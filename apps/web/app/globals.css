@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #1a1a1a;
+  color: #f2f2f2;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 2px solid #ff3b3b;
+  outline-offset: 2px;
+}
+
+/* Slim scrollbars that match the dark surface. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3a transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* CSS-only drag affordance (no icon font). */
+.drag-handle {
+  display: inline-block;
+  width: 12px;
+  height: 16px;
+  background: repeating-linear-gradient(
+    to bottom,
+    currentColor 0,
+    currentColor 1.5px,
+    transparent 1.5px,
+    transparent 5px
+  );
+  opacity: 0.45;
+}
