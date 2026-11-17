@@ -42,7 +42,7 @@ import {
   TopicSchema,
 } from "@clipdesk/types";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8765";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8765";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -57,7 +57,7 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, schema: z.ZodType<T>, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, init);
+  const res = await fetch(`${API_BASE}${path}`, init);
   const text = await res.text();
   let body: unknown = undefined;
   if (text) {
@@ -162,18 +162,18 @@ export const api = {
 };
 
 export function mediaUrl(rel: string): string {
-  return `${BASE}/media/${encodeURI(rel)}`;
+  return `${API_BASE}/media/${encodeURI(rel)}`;
 }
 
 export function zipUrl(run: string): string {
-  return `${BASE}/api/library/${encodeURIComponent(run)}/zip`;
+  return `${API_BASE}/api/library/${encodeURIComponent(run)}/zip`;
 }
 
 /** Upload a file with progress, streaming the body to the API. */
 export function uploadFile(file: File, onProgress: (pct: number) => void): Promise<ProbeResponse> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${BASE}/api/upload`);
+    xhr.open("POST", `${API_BASE}/api/upload`);
     xhr.setRequestHeader("X-Filename", encodeURIComponent(file.name));
     xhr.upload.onprogress = (event) => {
       if (event.lengthComputable && event.total > 0) {
