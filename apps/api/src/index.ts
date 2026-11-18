@@ -20,7 +20,21 @@ import { feedbackRouter } from "./routes/feedback";
 import { redisConnection, videoQueue, videoWorker } from "./jobs/process-video.job";
 
 const app = express();
-app.use(cors({ origin: config.WEB_ORIGIN, credentials: false }));
+
+const allowedOrigins = ["http://localhost:3000", process.env.CORS_ORIGIN].filter(Boolean) as string[];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: "1mb" }));
 app.disable("x-powered-by");
 
